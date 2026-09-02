@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<style>
+
+html {
+-webkit-tap-highlight-color:transparent;
+scroll-behavior:smooth;
+user-select:none;}
+
+* {
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-style:normal;
+font-optical-sizing:auto;
+font-family:"Montserrat", sans-serif;}
+
+:root {
+--primary:#730BBA;
+--secondary:#D9D9D9;
+--background:#fff;}
+
+body {
+margin:0;
+width:100vw;
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;}
+
+.Container {
+position:absolute;
+width:330px;
+height:250px;
+border-radius:20px;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+background:#E5C7FC;
+pointer-events:none;}
+
+.BottomNavBar {
+position:absolute;
+height:150px;
+width:500px;
+display:flex;
+align-items:center;
+justify-content:center;
+transform:scale(0.7);}
+
+.Wrapper {
+position:absolute;
+bottom:0;
+width:320px;
+height:100px;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;}
+
+.sides {
+position:absolute;
+width:calc(50% - 160px);
+height:100px;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;}
+
+.side {
+position:absolute;
+width:200%;
+height:70px;
+background:var(--background);
+filter:drop-shadow(0 2px 6px rgba(0,0,0,0.15));}
+
+.Left {
+left:0;}
+
+.left {
+left:50px;
+border-radius:35px;}
+
+.Right {
+right:0;}
+
+.right {
+right:50px;
+border-radius:35px;}
+
+.container {
+position:absolute;
+bottom:15px;
+width:320px;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;}
+
+.indicator {
+position:absolute;
+left:-17.5px;
+--i1:-17.5px;
+--i2:110px;
+width:100%;
+height:100px;
+display:flex;
+justify-content:center;
+align-items:center;
+transition:0.6s cubic-bezier(0,0,0,1);}
+
+.background {
+position:absolute;
+bottom:0;
+left:-552.5px;
+fill:var(--background);}
+
+.wrapper {
+position:absolute;
+bottom:60px;
+width:270px;
+height:50px;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;}
+
+.icons {
+position:absolute;
+width:270px;
+height:50px;
+display:flex;
+gap:60px;
+list-style:none;}
+
+.icon {
+position:relative;
+width:50px;
+height:50px;}
+
+.icon svg {
+fill:var(--secondary);
+transform:scale(0.8);}
+
+.icons.A {
+bottom:0;}
+
+.icons.B, .icons.C {
+bottom:-140px;}
+
+.icon.A:nth-child(1) {
+bottom:-140px;}
+
+.icon.A {
+position:relative;
+bottom:0;
+transition:bottom 0.6s cubic-bezier(0,0,0,1), opacity 0s;}
+
+.icon.B, .icon.C {
+position:relative;
+bottom:0;
+transition:bottom 0.7s cubic-bezier(0,0,0,1), opacity 0s;}
+
+.blur {
+position:absolute;
+bottom:-40px;
+width:320px;
+height:50px;
+filter:blur(5px);
+display:flex;
+background:var(--background);}
+
+.ICONS {
+position:absolute;
+bottom:20px;
+left:0;
+width:135px;
+height:80px;
+display:flex;
+align-items:center;
+justify-content:center;
+list-style:none;}
+
+.ICON {
+position:absolute;
+bottom:-80px;
+width:45px;
+height:45px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+background:var(--background);
+transition:0.6s cubic-bezier(0,0,0,1);
+box-shadow:1px 2px 5px rgba(0,0,0,0.2);}
+
+.ICON.active {
+bottom:28px;}
+
+.ICON svg {
+fill:var(--primary);
+transform:scale(0.9);}
+
+.clicks {
+position:absolute;
+bottom:50px;
+width:270px;
+height:50px;
+display:flex;
+gap:60px;
+list-style:none;}
+
+.click {
+position:relative;
+width:50px;
+height:50px;
+display:flex;
+align-items:center;
+justify-content:center;}
+
+.text {
+position:absolute;
+bottom:10px;
+font-size:0.5rem;
+color:var(--secondary);
+transition:0.4s;}
+
+.text.active {
+font-size:0.6rem;
+color:var(--primary);}
+
+</style>
+</head>
+<body>
+
+<div class="Container">
+
+<nav class="BottomNavBar">
+
+<section class="sides Left">
+<div class="side left"></div>
+</section>
+
+<section class="sides Right">
+<div class="side right"></div>
+</section>
+
+<div class="container">
+
+<div class="indicator">
+
+<svg class="background" style="filter:drop-shadow(0 2px 6px rgba(0,0,0,0.15));" width="1240" height="70" viewBox="0 0 1240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M570 0H0V70H1240V0H670C662.338 0.208011 654.396 3.70432 649.483 9.61698L643.094 17.3039C631.088 31.7517 608.913 31.7517 596.906 17.3039L590.518 9.61729C585.604 3.70443 577.662 0.208014 570 0Z"/>
+</svg>
+
+<div class="Wrapper">
+
+<ul class="ICONS">
+
+       <li class="ICON active">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M24.5769 16.7825C24.8335 16.6114 25.1678 16.6114 25.4244 16.7825L33.8272 22.3843C34.0397 22.526 34.1673 22.7645 34.1673 23.0199V34.0694C34.1673 34.4913 33.8253 34.8333 33.4034 34.8333H28.0562C27.6343 34.8333 27.2923 34.4913 27.2923 34.0694V29.4861C27.2923 29.0642 26.9503 28.7222 26.5284 28.7222H25.0007H23.4729C23.051 28.7222 22.709 29.0642 22.709 29.4861V34.0694C22.709 34.4913 22.367 34.8333 21.9451 34.8333H16.5979C16.176 34.8333 15.834 34.4913 15.834 34.0694V23.0199C15.834 22.7645 15.9616 22.526 16.1741 22.3843L24.5769 16.7825Z"/>
+       </svg>
+       </li>
+    
+       <li class="ICON">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M19.9678 20.7188C20.4196 20.7189 20.7861 21.0852 20.7861 21.5371V34.0166C20.7861 34.4685 20.4197 34.8348 19.9678 34.835H16.6543C16.2023 34.8349 15.8359 34.4686 15.8359 34.0166V21.5371C15.836 21.0852 16.2024 20.7188 16.6543 20.7188H19.9678ZM33.3506 16.5C33.8025 16.5001 34.1689 16.8665 34.1689 17.3184V34.0146C34.1689 34.4666 33.8025 34.8329 33.3506 34.833H30.0371C29.5851 34.833 29.2188 34.4666 29.2188 34.0146V17.3184C29.2188 16.8664 29.5852 16.5 30.0371 16.5H33.3506ZM26.749 24.1992C27.2009 24.1994 27.5673 24.5657 27.5674 25.0176V34.0137C27.5674 34.4656 27.2009 34.8319 26.749 34.832H23.4355C22.9836 34.832 22.6172 34.4657 22.6172 34.0137V25.0176C22.6172 24.5656 22.9836 24.1993 23.4355 24.1992H26.749Z"/>
+       </svg>
+       </li>
+
+       <li class="ICON">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M21.4482 25.9727C22.3787 26.9646 23.6451 27.5859 25.0762 27.5859C26.4912 27.5859 27.7444 26.9775 28.6719 26.0049C29.6655 26.286 30.5808 26.68 31.3652 27.1768C33.0526 28.2456 34.0017 29.6956 34.002 31.207V31.957C34.0016 32.785 33.3299 33.4567 32.502 33.457H17.502C16.6737 33.457 16.0003 32.7852 16 31.957L16.002 31.207C16.0022 29.6955 16.95 28.2456 18.6377 27.1768C19.453 26.6605 20.409 26.2554 21.4482 25.9727ZM25.0029 16C27.4882 16 29.5029 18.2386 29.5029 21C29.5029 23.7614 27.4882 26 25.0029 26C22.5176 26 20.5029 23.7614 20.5029 21C20.5029 18.2386 22.5176 16 25.0029 16Z"/>
+       </svg>
+       </li>
+
+</ul>
+
+</div>
+
+<svg class="background" width="1240" height="70" viewBox="0 0 1240 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M570 0H0V70H1240V0H670C662.338 0.208011 654.396 3.70432 649.483 9.61698L643.094 17.3039C631.088 31.7517 608.913 31.7517 596.906 17.3039L590.518 9.61729C585.604 3.70443 577.662 0.208014 570 0Z"/>
+</svg>
+
+</div>
+
+</div>
+
+<div class="wrapper">
+
+<ul class="icons A">
+
+       <li class="icon A">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M24.5769 16.7825C24.8335 16.6114 25.1678 16.6114 25.4244 16.7825L33.8272 22.3843C34.0397 22.526 34.1673 22.7645 34.1673 23.0199V34.0694C34.1673 34.4913 33.8253 34.8333 33.4034 34.8333H28.0562C27.6343 34.8333 27.2923 34.4913 27.2923 34.0694V29.4861C27.2923 29.0642 26.9503 28.7222 26.5284 28.7222H25.0007H23.4729C23.051 28.7222 22.709 29.0642 22.709 29.4861V34.0694C22.709 34.4913 22.367 34.8333 21.9451 34.8333H16.5979C16.176 34.8333 15.834 34.4913 15.834 34.0694V23.0199C15.834 22.7645 15.9616 22.526 16.1741 22.3843L24.5769 16.7825Z"/>
+       </svg>
+       </li>
+       
+       <li class="icon A">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M19.9678 20.7188C20.4196 20.7189 20.7861 21.0852 20.7861 21.5371V34.0166C20.7861 34.4685 20.4197 34.8348 19.9678 34.835H16.6543C16.2023 34.8349 15.8359 34.4686 15.8359 34.0166V21.5371C15.836 21.0852 16.2024 20.7188 16.6543 20.7188H19.9678ZM33.3506 16.5C33.8025 16.5001 34.1689 16.8665 34.1689 17.3184V34.0146C34.1689 34.4666 33.8025 34.8329 33.3506 34.833H30.0371C29.5851 34.833 29.2188 34.4666 29.2188 34.0146V17.3184C29.2188 16.8664 29.5852 16.5 30.0371 16.5H33.3506ZM26.749 24.1992C27.2009 24.1994 27.5673 24.5657 27.5674 25.0176V34.0137C27.5674 34.4656 27.2009 34.8319 26.749 34.832H23.4355C22.9836 34.832 22.6172 34.4657 22.6172 34.0137V25.0176C22.6172 24.5656 22.9836 24.1993 23.4355 24.1992H26.749Z"/>
+       </svg>
+       </li>
+
+       <li class="icon A">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M21.4482 25.9727C22.3787 26.9646 23.6451 27.5859 25.0762 27.5859C26.4912 27.5859 27.7444 26.9775 28.6719 26.0049C29.6655 26.286 30.5808 26.68 31.3652 27.1768C33.0526 28.2456 34.0017 29.6956 34.002 31.207V31.957C34.0016 32.785 33.3299 33.4567 32.502 33.457H17.502C16.6737 33.457 16.0003 32.7852 16 31.957L16.002 31.207C16.0022 29.6955 16.95 28.2456 18.6377 27.1768C19.453 26.6605 20.409 26.2554 21.4482 25.9727ZM25.0029 16C27.4882 16 29.5029 18.2386 29.5029 21C29.5029 23.7614 27.4882 26 25.0029 26C22.5176 26 20.5029 23.7614 20.5029 21C20.5029 18.2386 22.5176 16 25.0029 16Z"/>
+       </svg>
+       </li>
+
+</ul>
+
+<ul class="icons B">
+
+       <li class="icon B">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M24.5769 16.7825C24.8335 16.6114 25.1678 16.6114 25.4244 16.7825L33.8272 22.3843C34.0397 22.526 34.1673 22.7645 34.1673 23.0199V34.0694C34.1673 34.4913 33.8253 34.8333 33.4034 34.8333H28.0562C27.6343 34.8333 27.2923 34.4913 27.2923 34.0694V29.4861C27.2923 29.0642 26.9503 28.7222 26.5284 28.7222H25.0007H23.4729C23.051 28.7222 22.709 29.0642 22.709 29.4861V34.0694C22.709 34.4913 22.367 34.8333 21.9451 34.8333H16.5979C16.176 34.8333 15.834 34.4913 15.834 34.0694V23.0199C15.834 22.7645 15.9616 22.526 16.1741 22.3843L24.5769 16.7825Z"/>
+       </svg>
+       </li>
+       
+       <li class="icon B">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M19.9678 20.7188C20.4196 20.7189 20.7861 21.0852 20.7861 21.5371V34.0166C20.7861 34.4685 20.4197 34.8348 19.9678 34.835H16.6543C16.2023 34.8349 15.8359 34.4686 15.8359 34.0166V21.5371C15.836 21.0852 16.2024 20.7188 16.6543 20.7188H19.9678ZM33.3506 16.5C33.8025 16.5001 34.1689 16.8665 34.1689 17.3184V34.0146C34.1689 34.4666 33.8025 34.8329 33.3506 34.833H30.0371C29.5851 34.833 29.2188 34.4666 29.2188 34.0146V17.3184C29.2188 16.8664 29.5852 16.5 30.0371 16.5H33.3506ZM26.749 24.1992C27.2009 24.1994 27.5673 24.5657 27.5674 25.0176V34.0137C27.5674 34.4656 27.2009 34.8319 26.749 34.832H23.4355C22.9836 34.832 22.6172 34.4657 22.6172 34.0137V25.0176C22.6172 24.5656 22.9836 24.1993 23.4355 24.1992H26.749Z"/>
+       </svg>
+       </li>
+
+       <li class="icon B">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M21.4482 25.9727C22.3787 26.9646 23.6451 27.5859 25.0762 27.5859C26.4912 27.5859 27.7444 26.9775 28.6719 26.0049C29.6655 26.286 30.5808 26.68 31.3652 27.1768C33.0526 28.2456 34.0017 29.6956 34.002 31.207V31.957C34.0016 32.785 33.3299 33.4567 32.502 33.457H17.502C16.6737 33.457 16.0003 32.7852 16 31.957L16.002 31.207C16.0022 29.6955 16.95 28.2456 18.6377 27.1768C19.453 26.6605 20.409 26.2554 21.4482 25.9727ZM25.0029 16C27.4882 16 29.5029 18.2386 29.5029 21C29.5029 23.7614 27.4882 26 25.0029 26C22.5176 26 20.5029 23.7614 20.5029 21C20.5029 18.2386 22.5176 16 25.0029 16Z"/>
+       </svg>
+       </li>
+
+</ul>
+
+<ul class="icons C">
+
+       <li class="icon C">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M24.5769 16.7825C24.8335 16.6114 25.1678 16.6114 25.4244 16.7825L33.8272 22.3843C34.0397 22.526 34.1673 22.7645 34.1673 23.0199V34.0694C34.1673 34.4913 33.8253 34.8333 33.4034 34.8333H28.0562C27.6343 34.8333 27.2923 34.4913 27.2923 34.0694V29.4861C27.2923 29.0642 26.9503 28.7222 26.5284 28.7222H25.0007H23.4729C23.051 28.7222 22.709 29.0642 22.709 29.4861V34.0694C22.709 34.4913 22.367 34.8333 21.9451 34.8333H16.5979C16.176 34.8333 15.834 34.4913 15.834 34.0694V23.0199C15.834 22.7645 15.9616 22.526 16.1741 22.3843L24.5769 16.7825Z"/>
+       </svg>
+       </li>
+       
+       <li class="icon C">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M19.9678 20.7188C20.4196 20.7189 20.7861 21.0852 20.7861 21.5371V34.0166C20.7861 34.4685 20.4197 34.8348 19.9678 34.835H16.6543C16.2023 34.8349 15.8359 34.4686 15.8359 34.0166V21.5371C15.836 21.0852 16.2024 20.7188 16.6543 20.7188H19.9678ZM33.3506 16.5C33.8025 16.5001 34.1689 16.8665 34.1689 17.3184V34.0146C34.1689 34.4666 33.8025 34.8329 33.3506 34.833H30.0371C29.5851 34.833 29.2188 34.4666 29.2188 34.0146V17.3184C29.2188 16.8664 29.5852 16.5 30.0371 16.5H33.3506ZM26.749 24.1992C27.2009 24.1994 27.5673 24.5657 27.5674 25.0176V34.0137C27.5674 34.4656 27.2009 34.8319 26.749 34.832H23.4355C22.9836 34.832 22.6172 34.4657 22.6172 34.0137V25.0176C22.6172 24.5656 22.9836 24.1993 23.4355 24.1992H26.749Z"/>
+       </svg>
+       </li>
+
+       <li class="icon C">
+       <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+       <path d="M21.4482 25.9727C22.3787 26.9646 23.6451 27.5859 25.0762 27.5859C26.4912 27.5859 27.7444 26.9775 28.6719 26.0049C29.6655 26.286 30.5808 26.68 31.3652 27.1768C33.0526 28.2456 34.0017 29.6956 34.002 31.207V31.957C34.0016 32.785 33.3299 33.4567 32.502 33.457H17.502C16.6737 33.457 16.0003 32.7852 16 31.957L16.002 31.207C16.0022 29.6955 16.95 28.2456 18.6377 27.1768C19.453 26.6605 20.409 26.2554 21.4482 25.9727ZM25.0029 16C27.4882 16 29.5029 18.2386 29.5029 21C29.5029 23.7614 27.4882 26 25.0029 26C22.5176 26 20.5029 23.7614 20.5029 21C20.5029 18.2386 22.5176 16 25.0029 16Z"/>
+       </svg>
+       </li>
+
+</ul>
+
+<div class="blur"></div>
+
+</div>
+
+<ul class="clicks">
+
+<li class="click active">
+<span class="text active">Home</span>
+</li>
+
+<li class="click">
+<span class="text">History</span>
+</li>
+
+<li class="click">
+<span class="text">Personal</span>    
+</li>
+
+</ul>
+
+</nav>
+
+</div>
+
+<script>
+
+const IconAs = document.querySelectorAll(".icon.A");
+const IconBs = document.querySelectorAll(".icon.B");
+const IconCs = document.querySelectorAll(".icon.C");
+const ICONs = document.querySelectorAll(".ICON");
+const Texts = document.querySelectorAll(".text");
+const Clicks = document.querySelectorAll(".click");
+const indicator = document.querySelector(".indicator");
+
+var x = 0;
+
+// reset IconAs & IconBs & IconCs//
+function reset () {
+
+IconCs.forEach((IconC, index) => {
+IconCs[index].style.bottom="0",IconCs[index].style.opacity="0";});
+
+IconBs.forEach((IconB, index) => {
+IconBs[index].style.bottom="0",IconBs[index].style.opacity="0";});
+
+IconAs.forEach((IconA, index) => {
+IconAs[index].style.bottom="0",IconAs[index].style.opacity="1";}); 
+
+}
+
+const Icon1 = () => { 
+
+indicator.style.left="var(--i1)";
+reset();
+IconAs[0].style.bottom="-120px",IconAs[0].style.opacity="0";
+
+// set the opacity & location of moving icons //
+IconAs.forEach((IconA,index) => {
+
+if(index > 0 && index < x){IconA.style.opacity="0";}
+
+});
+
+IconCs.forEach((IconC,index) => {
+
+if(index > 0 && index < x){IconC.style.opacity="1",IconC.style.bottom="140px";}
+
+});
+
+// ICONS //
+ICONs.forEach(ICON => ICON.classList.remove("active"));
+ICONs[0].classList.add("active");
+
+// Texts //
+Texts.forEach(Text => Text.classList.remove("active"));
+Texts[0].classList.add("active");
+
+// Clicks //
+Clicks.forEach(Click => Click.classList.remove("active"));
+Clicks[0].classList.add("active");
+
+x = 0;
+
+}
+
+const Icon2 = () => {
+
+indicator.style.left="calc(var(--i1) + var(--i2))";
+reset();
+IconAs[1].style.bottom="-120px",IconAs[1].style.opacity="0";
+
+// set the opacity & location of moving icons //
+IconAs.forEach((IconA,index) => {
+
+if(index > 1 && index < x){IconA.style.opacity="0";}
+
+});
+
+IconCs.forEach((IconC,index) => {
+
+if(index > 1 && index < x){IconC.style.opacity="1",IconC.style.bottom="140px";}
+
+});
+
+// ICONS //
+ICONs.forEach(ICON => ICON.classList.remove("active"));
+ICONs[1].classList.add("active");
+
+// Texts //
+Texts.forEach(Text => Text.classList.remove("active"));
+Texts[1].classList.add("active");
+
+// Clicks //
+Clicks.forEach(Click => Click.classList.remove("active"));
+Clicks[1].classList.add("active");
+
+x = 1;
+
+}
+
+const Icon3 = () => {
+
+indicator.style.left="calc(var(--i1) + 2*var(--i2))";
+reset();
+IconAs[2].style.bottom="-120px",IconAs[2].style.opacity="0";
+
+// set the opacity & location of moving icons //
+IconAs.forEach((IconA,index) => {
+
+if(index > x && index < 2){IconA.style.opacity="0";}
+
+});
+
+IconBs.forEach((IconB,index) => {
+
+if(index > x && index < 2){IconB.style.opacity="1",IconB.style.bottom="140px";}
+
+});
+
+IconAs.forEach((IconA,index) => {
+
+if(index > 2 && index < x){IconA.style.opacity="0";}
+
+});
+
+IconCs.forEach((IconC,index) => {
+
+if(index > 2 && index < x){IconC.style.opacity="1",IconC.style.bottom="140px";}
+
+});
+
+// ICONS //
+ICONs.forEach(ICON => ICON.classList.remove("active"));
+ICONs[2].classList.add("active");
+
+// Texts //
+Texts.forEach(Text => Text.classList.remove("active"));
+Texts[2].classList.add("active");
+
+// Clicks //
+Clicks.forEach(Click => Click.classList.remove("active"));
+Clicks[2].classList.add("active");
+
+x = 2;
+
+}
+
+
+
+function demo() {
+  
+const icons = [Icon2, Icon3, Icon1];
+
+for (let i = 0; i < icons.length; i++) {
+    
+setTimeout(() => {icons[i]();}, (i + 1) * 1500);
+  
+}
+
+}
+
+demo();
+
+setInterval(() => {demo();}, 4500);
+
+</script>
+</body>
+</html>

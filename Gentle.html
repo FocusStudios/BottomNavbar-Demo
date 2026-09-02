@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="Spring-Gentle.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Istok+Web:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+
+html {
+-webkit-tap-highlight-color:transparent;
+scroll-behavior:smooth;
+user-select:none;}
+
+body {
+margin:0;
+width:100vw;
+height:100vh;
+overflow:hidden;
+display:flex;
+align-items:center;
+justify-content:center;}
+
+* {
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Istok Web", serif;
+font-weight:300;
+font-style:normal;}
+
+:root {
+--primary:linear-gradient(#FF0099,#FF005C);
+--secondary:#000;
+--tertiary:#CACACA;
+--background:#fff;
+--text:#FF0099;
+--shadow:rgba(255,0,153,0.2);}
+
+.Container {
+position:absolute;
+width:330px;
+height:250px;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+border-radius:20px;
+background:var(--primary);}
+
+.screen {
+position:absolute;
+width:360px;
+height:400px;
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+background:var(--primary);
+outline:6px solid #FFB3D3;
+border-radius:30px;
+transform:scale(0.7) translateY(-30%);
+box-shadow:0 20px 40px rgba(0,0,0,0.2);}
+
+nav {
+position:absolute;
+bottom:0;
+width:100%;
+height:70px;
+display:flex;
+align-items:center;
+justify-content:center;}
+
+.shadow-container {
+position:absolute;
+bottom:0;
+width:100%;
+height:100px;
+display:flex;
+justify-content:center;
+align-items:center;
+pointer-events:none;}
+
+nav .curve .group {
+transform-origin:center;
+transform:translateY(0.1px) scale(1);
+transition:0.4s cubic-bezier(0.5,-2,1,1);}
+
+nav.active .curve .group {
+transform:translateY(3.5px) scale(1.2);
+transition:0.6s cubic-bezier(0,0,0.5,3);}
+
+.shadow-container .curve {
+opacity:0.3;
+filter:blur(6px);
+fill:var(--secondary);}
+
+nav .main-container {
+position:absolute;
+width:360px;
+height:70px;
+display:flex;
+align-items:center;
+justify-content:center;
+background:var(--background);
+border-radius:10px 10px 0 0;}
+
+.rect {
+position:absolute;
+bottom:10px; 
+width:70px;
+height:4px;
+border-radius:2px;
+background:#F1F1F1;}
+
+.button {
+position:absolute;
+bottom:10px;
+transform:translateY(0) scale(1);
+transition:0.4s cubic-bezier(0.5,-2,1,1);}
+
+nav.active .button {
+transform:translateY(5px) scale(1.2);
+transition:0.6s cubic-bezier(0,0,0.5,3);}
+
+.button svg {
+position:absolute;
+top:-20px;
+fill:var(--background);
+pointer-events:none;}
+
+.button section {
+position:absolute;
+bottom:15px;
+width:50px;
+height:50px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+cursor:pointer;
+background:var(--primary);
+box-shadow:0 5px 10px var(--shadow);}
+
+.button .circle1 {
+position:relative;
+width:35px;
+height:35px;
+border-radius:20px;
+border:6px solid var(--background);}
+
+.button .circle2 {
+position:absolute;
+top:15px;
+left:25px;
+width:10px;
+height:10px;
+border-radius:50%;
+background:var(--background);}
+
+.icons {
+position:absolute;
+top:0;
+width:330px;
+height:50px;
+list-style:none;
+display:flex;
+gap:20px;
+transition:0.3s;}
+
+.icon, .Icon, .button {
+position:relative;
+width:50px;
+height:50px;
+display:flex;
+justify-content:center;}
+
+.icon.A {
+transform:scale(0.9);}
+
+.icon.A .container {
+position:absolute;
+width:50px;
+height:50px;}
+
+.icon.A .fill {
+position:absolute;
+width:50px;
+height:50px;
+background:var(--primary);}
+
+.icon.A svg {
+position:absolute;
+transform-origin:center;}
+
+.icon.A .fill {
+--i1:25px;
+--i2:-20px;
+--i3:25px;
+--i4:-20px;
+transform:translate(var(--i1),var(--i3));}
+
+.icon.A.inactive .fill {
+animation:Hide 0.6s cubic-bezier(0.5,-0.5,1,1) forwards;}
+
+.icon.A.active .fill {
+animation:Gentle-Translate 1.6s forwards;}
+
+.icon.A:nth-child(1) .fill {
+--i3:23px;}
+
+.icon.A:nth-child(5) .fill {
+--i3:24px;}
+
+.icon.A:nth-child(1) .container, .icon.A:nth-child(1) .fill {
+clip-path:path("M25.7364 15.3008C25.1037 14.8997 24.2963 14.8997 23.6636 15.3008L15.8991 20.2237C15.3392 20.5786 15 21.1954 15 21.8583V24.9141V31.1582V31.4C15 33.3882 16.6118 35 18.6 35H30.8C32.7882 35 34.4 33.3882 34.4 31.4V31.1582V24.9141V21.8583C34.4 21.1954 34.0607 20.5786 33.5009 20.2237L25.7364 15.3008Z");}
+
+.icon.A:nth-child(2) .container, .icon.A:nth-child(2) .fill {
+clip-path:path("M19.6 15C17.6118 15 16 16.6118 16 18.6V21.4531V25.5274V33.5977C16 34.6825 17.1805 35.3552 18.1138 34.8021L24.2862 31.144C24.7263 30.8831 25.2737 30.8831 25.7138 31.144L31.8862 34.8021C32.8195 35.3552 34 34.6825 34 33.5977V25.5274V21.4531V18.6C34 16.6118 32.3882 15 30.4 15H19.6Z");}
+
+.icon.A:nth-child(4) .container, .icon.A:nth-child(4) .fill {
+clip-path:path("M25 35C30.5228 35 35 30.5228 35 25C35 19.4772 30.5228 15 25 15C19.4772 15 15 19.4772 15 25C15 26.6665 15.4077 28.2379 16.1287 29.6197C16.2624 29.8759 16.2949 30.175 16.2021 30.4487L15.3752 32.885C15.0857 33.7378 15.8039 34.5937 16.694 34.4567L20.1097 33.9312V33.9312C20.2761 33.9055 20.4504 33.9091 20.6016 33.9833C21.9289 34.6344 23.4218 35 25 35Z");}
+
+.icon.A:nth-child(5) .container, .icon.A:nth-child(5) .fill {
+clip-path:path("M25 35C19.4772 35 15 30.5228 15 25C15 19.4772 19.4772 15 25 15C25.524 15 26.0385 15.0403 26.5408 15.118L33.0445 15.2602C34.0735 15.2827 34.7119 16.3885 34.2169 17.2908L33.1598 19.2179C34.3187 20.8503 35 22.8456 35 25C35 30.5228 30.5228 35 25 35Z");}
+
+.icon.A .symbol {
+stroke:var(--tertiary);}
+
+.icon.A .stroke {
+stroke:var(--secondary);}
+
+.icon.A.inactive .path {
+stroke-dasharray:7;
+stroke-dashoffset:0;
+transition:0.5s cubic-bezier(0,0,0.5,2) 0.4s;}
+
+.icon.A.active .path {
+stroke-dasharray:7;
+stroke-dashoffset:7;
+transition:0.3s cubic-bezier(0.5,-1,1,1);}
+
+.icon.A .plus {
+transform-origin:center;}
+
+.icon.A.inactive .plus {
+transform:scale(1);
+transition:0.5s cubic-bezier(0,0,0.5,2) 0.4s;}
+
+.icon.A.active .plus {
+transform:scale(0);
+transition:0.3s cubic-bezier(0.5,-0.5,1,1);}
+
+.icon.A.inactive .dot:nth-child(1) {
+animation:Dots1 0.7s forwards;}
+
+.icon.A.active .dot:nth-child(1)  {
+animation:Dots2 0.7s forwards;}
+
+.icon.A.inactive .dot:nth-child(2)  {
+animation:Dots1 0.7s forwards 0.1s;}
+
+.icon.A.active .dot:nth-child(2)  {
+animation:Dots2 0.7s forwards 0.1s;}
+
+.icon.A.inactive .dot:nth-child(3)  {
+animation:Dots1 0.7s forwards 0.2s;}
+
+.icon.A.active .dot:nth-child(3)  {
+animation:Dots2 0.7s forwards 0.2s;}
+
+.icon.A span {
+position:absolute;
+bottom:-5px;
+font-size:0.5rem;
+color:var(--secondary);
+transition:0.2s ease-out;}
+
+.icon.A.active span {
+color:var(--text);}
+
+.submenu {
+position:absolute;
+bottom:95px;
+width:50px;
+height:50px;
+z-index:-1;
+list-style:none;}
+
+.submenu .icon.B {
+position:absolute;
+width:50px;
+height:50px;
+display:flex;
+transform:scale(0.5) translate(0,130px);}
+
+.submenu .icon.B:nth-child(1) {
+transition:0.8s cubic-bezier(0.5,-0.5,1,1);}
+
+.submenu .icon.B:nth-child(2) {
+transition:0.8s cubic-bezier(0.5,-0.5,1,1) 0.05s;}
+
+.submenu .icon.B:nth-child(3) {
+transition:0.8s cubic-bezier(0.5,-0.5,1,1) 0.1s;}
+
+.submenu .icon.B:nth-child(4) {
+transition:0.8s cubic-bezier(0.5,-0.5,1,1) 0.15s;}
+
+nav.active .submenu .icon.B:nth-child(1) {
+transform:scale(1) translate(-82px,15px);
+transition:0.6s cubic-bezier(0,0,0.5,1.5);}
+
+nav.active .submenu .icon.B:nth-child(2) {
+transform:scale(1) translate(-30px,-15px);
+transition:0.6s cubic-bezier(0,0,0.5,1.5) 0.05s;}
+
+nav.active .submenu .icon.B:nth-child(3) {
+transform:scale(1) translate(30px,-15px);
+transition:0.6s cubic-bezier(0,0,0.5,1.5) 0.1s;}
+
+nav.active .submenu .icon.B:nth-child(4) {
+transform:scale(1) translate(82px,15px);
+transition:0.6s cubic-bezier(0,0,0.5,1.5) 0.15s;}
+
+.wrapper {
+position:relative;
+width:50px;
+height:50px;
+border-radius:50%;
+transition:0.2s;
+display:flex;
+align-items:center;
+justify-content:center;
+background:var(--background);
+box-shadow:5px 5px 10px rgba(0,0,0,0.2);}
+
+.wrapper:active {
+transform:scale(0.85);}
+
+.wrapper svg {
+transform:scale(0.9);
+fill:var(--secondary);}
+
+@keyframes Hide {
+0%{transform:translate(calc(var(--i1) + var(--i2)),calc(var(--i3) + var(--i4)));}
+100%{transform:translate(var(--i1),var(--i3));}}
+
+@keyframes Path1 {
+0%{stroke-dashoffset:7;}
+100%{stroke-dashoffset:0;}}
+
+@keyframes Path2 {
+0%{stroke-dashoffset:0;}
+100%{stroke-dashoffset:7;}}
+
+@keyframes Dots1 {
+0%{transform:translateY(0px);}
+50%{transform:translateY(-3px);}
+100%{transform:translateY(0px);}}
+
+@keyframes Dots2 {
+0%{transform:translateY(0px);opacity:1;}
+50%{transform:translateY(-3px);opacity:1;}
+100%{transform:translateY(0px); opacity:0;}}
+
+</style>
+</head>
+<body>
+
+<div class="Container">
+
+<div class="screen">
+
+<nav>
+
+<ul class="submenu">
+
+<!-- Icon 1 -->
+
+<li class="icon B">
+
+<div class="wrapper">
+
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M33.012 15.697C33.3671 15.9431 33.5533 16.3685 33.4866 16.7939L31.2366 31.4192C31.1839 31.7602 30.9764 32.059 30.674 32.2277C30.3718 32.3964 30.0096 32.4175 29.6897 32.284L25.4849 30.5367L23.0767 33.1418C22.7638 33.4828 22.2716 33.5954 21.8391 33.4265C21.4068 33.2578 21.1255 32.8394 21.1255 32.3753V29.4362C21.1255 29.2957 21.1782 29.162 21.2731 29.0566L27.1653 22.63C27.3694 22.4084 27.3623 22.0674 27.1514 21.8564C26.9403 21.6455 26.5993 21.6314 26.3779 21.8319L19.227 28.1847L16.1227 26.6307C15.7501 26.4445 15.511 26.0717 15.5004 25.6569C15.4899 25.2421 15.7079 24.8554 16.0664 24.6479L31.8167 15.6478C32.1929 15.4333 32.6569 15.4544 33.012 15.697Z"/>
+</svg>
+
+</div>
+
+</li>
+
+<!-- Icon 2 -->
+
+<li class="icon B">
+
+<div class="wrapper">
+
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M32.2 17.8008H17.8C16.81 17.8008 16.009 18.6108 16.009 19.6008L16 30.4009C16 31.3909 16.81 32.2008 17.8 32.2008H32.2C33.19 32.2008 34 31.3909 34 30.4009V19.6008C34 18.6108 33.19 17.8008 32.2 17.8008ZM31.84 21.6258L25.477 25.6039C25.189 25.7838 24.811 25.7838 24.523 25.6039L18.16 21.6258C18.0697 21.5752 17.9908 21.5067 17.9276 21.4246C17.8646 21.3426 17.8189 21.2485 17.7933 21.1483C17.7678 21.048 17.7627 20.9435 17.7786 20.8413C17.7945 20.7391 17.8309 20.6411 17.8858 20.5533C17.9406 20.4656 18.0127 20.3899 18.0976 20.3308C18.1827 20.2717 18.2787 20.2305 18.3801 20.2095C18.4815 20.1887 18.586 20.1885 18.6874 20.2092C18.7888 20.2299 18.8849 20.2709 18.97 20.3299L25 24.1008L31.03 20.3299C31.1151 20.2709 31.2112 20.2299 31.3126 20.2092C31.414 20.1885 31.5185 20.1887 31.6199 20.2095C31.7213 20.2305 31.8174 20.2717 31.9024 20.3308C31.9873 20.3899 32.0594 20.4656 32.1142 20.5533C32.1691 20.6411 32.2056 20.7391 32.2215 20.8413C32.2374 20.9435 32.2323 21.048 32.2068 21.1483C32.1811 21.2485 32.1353 21.3426 32.0723 21.4246C32.0092 21.5067 31.9303 21.5752 31.84 21.6258Z"/>
+</svg>
+
+</div>
+
+</li>
+
+<!-- Icon 3 -->
+
+<li class="icon B">
+
+<div class="wrapper">
+
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M21.9033 16.4043C22.29 16.4281 22.668 16.5345 23.0107 16.7178C23.3533 16.9011 23.6522 17.1564 23.8867 17.4648L23.9834 17.6006L23.9844 17.6016L24.7139 18.6982C24.7958 18.8212 24.9083 18.9222 25.0391 18.9922H25.0381C25.169 19.0621 25.3153 19.0987 25.4629 19.0986H30.8008C31.5166 19.0988 32.2038 19.3835 32.71 19.8896C33.216 20.3959 33.4999 21.0829 33.5 21.7988V29.8984C33.5 30.6142 33.2158 31.3014 32.71 31.8076C32.2038 32.3137 31.5166 32.5984 30.8008 32.5986H18.2002C17.4842 32.5986 16.7973 32.3138 16.291 31.8076C15.7849 31.3014 15.5 30.6144 15.5 29.8984V19.0986C15.5001 18.3827 15.7848 17.6957 16.291 17.1895C16.7972 16.6834 17.4843 16.3985 18.2002 16.3984H21.7373L21.9033 16.4043Z"/>
+</svg>
+
+</div>
+
+</li>
+
+<!-- Icon 4 -->
+
+<li class="icon B">
+
+<div class="wrapper">
+
+<svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M25.0227 26.8308V32.5473C25.0227 33.0712 25.4511 33.5 25.9749 33.5H31.6884C32.2122 33.5 32.6406 33.0712 32.6406 32.5473V26.8308C32.6406 26.3067 32.2122 25.8779 31.6884 25.8779H25.9749C25.4511 25.8779 25.0227 26.3067 25.0227 26.8308ZM16.4522 33.5H22.1657C22.6895 33.5 23.1181 33.0712 23.1181 32.5473V26.8308C23.1181 26.3067 22.6895 25.8779 22.1657 25.8779H16.4522C15.9286 25.8779 15.5 26.3067 15.5 26.8308V32.5473C15.5 33.0712 15.9286 33.5 16.4522 33.5ZM15.5 17.3031V23.0196C15.5 23.5437 15.9286 23.9725 16.4522 23.9725H22.1657C22.6895 23.9725 23.1181 23.5437 23.1181 23.0196V17.3031C23.1181 16.779 22.6895 16.3504 22.1657 16.3504H16.4522C15.9286 16.3504 15.5 16.779 15.5 17.3031ZM27.8318 15.7787L23.7846 19.8184C23.6964 19.9066 23.6263 20.0112 23.5786 20.1265C23.5308 20.2417 23.5062 20.3654 23.5062 20.4901C23.5062 20.6149 23.5308 20.7385 23.5786 20.8537C23.6263 20.969 23.6964 21.0736 23.7846 21.1619L27.8318 25.2111C28.2031 25.5825 28.803 25.5825 29.1744 25.2111L33.2215 21.1619C33.3099 21.0736 33.3799 20.969 33.4277 20.8537C33.4755 20.7385 33.5 20.6149 33.5 20.4901C33.5 20.3654 33.4755 20.2417 33.4277 20.1265C33.3799 20.0112 33.3099 19.9066 33.2215 19.8184L29.1839 15.7787C28.8126 15.4071 28.2031 15.4071 27.8318 15.7787Z"/>
+</svg>
+
+</div>
+
+</li>
+
+</ul>
+
+<!-- End Of Submenu -->
+
+
+<!-- Shadow -->
+
+<div class="shadow-container">
+
+<svg class="curve" width="130" height="100" viewBox="0 0 130 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+<rect x="-115" y="30" width="360" height="80" rx="10"/>
+
+<path class="group" d="M0 30H11.05C21.0728 30 30.5783 27.5248 38.0497 20.66C53.5188 6.44666 76.9119 6.44666 92.381 20.66C99.8523 27.5248 108.927 30 118.95 30H130V40H0V30Z"/>
+
+</svg>
+
+</div>
+
+
+<section class="main-container">
+
+
+<div class="rect"></div>
+
+
+<!-- Center Button -->
+
+<div class="button">
+
+<svg width="130" height="30" viewBox="0 0 130 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M0 20H11.05C21.0728 20 30.5783 17.5248 38.0497 10.66C53.5188 -3.55334 76.9119 -3.55334 92.381 10.66C99.8523 17.5248 108.927 20 118.95 20H130V30H0V20Z"/>
+</svg>
+
+<section>
+<div class="circle1"></div>
+<div class="circle2"></div>
+</section>
+
+</div>
+
+
+<ul class="icons">
+
+<!-- Icon 1 -->
+
+<li class="icon A inactive">
+
+<span>home</span>
+
+<svg class="symbol" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path class="path" d="M18 22.9062L23.8087 19" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+
+<section class="container">
+<div class="fill"></div>
+</section>
+
+<svg class="stroke" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M25.7364 15.3008C25.1037 14.8997 24.2963 14.8997 23.6636 15.3008L15.8991 20.2237C15.3392 20.5786 15 21.1954 15 21.8583V24.9141V31.1582V31.4C15 33.3882 16.6118 35 18.6 35H30.8C32.7882 35 34.4 33.3882 34.4 31.4V31.1582V24.9141V21.8583C34.4 21.1954 34.0607 20.5786 33.5009 20.2237L25.7364 15.3008Z" stroke-width="1.2"/>
+</svg>
+
+</li>
+
+<!-- Icon 2 -->
+
+<li class="icon A">
+
+<span>follow</span>
+
+<svg class="symbol" id="plus" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path class="plus" d="M25 21V26M22.5 23.5H27.5" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+
+<section class="container">
+<div class="fill"></div>
+</section>
+
+<svg class="stroke" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M19.6 15C17.6118 15 16 16.6118 16 18.6V21.4531V25.5274V33.5977C16 34.6825 17.1805 35.3552 18.1138 34.8021L24.2862 31.144C24.7263 30.8831 25.2737 30.8831 25.7138 31.144L31.8862 34.8021C32.8195 35.3552 34 34.6825 34 33.5977V25.5274V21.4531V18.6C34 16.6118 32.3882 15 30.4 15H19.6Z" stroke-width="1.2"/>
+</svg>
+
+</li>
+
+
+<li class="Icon"></li>
+
+
+<!-- Icon 3 -->
+
+<li class="icon A">
+
+<span>message</span>
+
+<svg class="symbol" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path class="dot" d="M21 25H21.0001" stroke-width="2" stroke-linecap="round"/>
+<path class="dot" d="M25 25H25.0001" stroke-width="2" stroke-linecap="round"/>
+<path class="dot" d="M29 25H29.0001" stroke-width="2" stroke-linecap="round"/>
+</svg>
+
+<section class="container">
+<div class="fill"></div>
+</section>
+
+<svg class="stroke" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M25 35C30.5228 35 35 30.5228 35 25C35 19.4772 30.5228 15 25 15C19.4772 15 15 19.4772 15 25C15 26.6665 15.4077 28.2379 16.1287 29.6197C16.2624 29.8759 16.2949 30.175 16.2021 30.4487L15.3752 32.885C15.0857 33.7378 15.8039 34.5937 16.694 34.4567L20.1097 33.9312V33.9312C20.2761 33.9055 20.4504 33.9091 20.6016 33.9833C21.9289 34.6344 23.4218 35 25 35Z" stroke-width="1.2"/>
+</svg>
+
+</li>
+
+<!-- Icon 4 -->
+
+<li class="icon A">
+
+<span>personal</span>
+
+<svg class="symbol" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path class="path" d="M31.0622 27.8984C30.5098 28.8551 29.7389 29.6675 28.8125 30.2691C27.886 30.8708 26.8303 31.2446 25.7317 31.3601" stroke-width="1.2" stroke-linecap="round"/>
+</svg>
+
+<section class="container">
+<div class="fill"></div>
+</section>
+
+<svg class="stroke" width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M25 35C19.4772 35 15 30.5228 15 25C15 19.4772 19.4772 15 25 15C25.524 15 26.0385 15.0403 26.5408 15.118L33.0445 15.2602C34.0735 15.2827 34.7119 16.3885 34.2169 17.2908L33.1598 19.2179C34.3187 20.8503 35 22.8456 35 25C35 30.5228 30.5228 35 25 35Z" stroke-width="1.2"/>
+</svg>
+
+</li>
+
+</ul>
+
+</section>
+
+</nav>
+
+</div>
+
+</div>
+
+<script>
+
+const Nav = document.querySelector("nav");
+const IconAs = document.querySelectorAll(".icon.A");
+const Button = document.querySelector(".button");
+
+IconAs[0].classList.add("active");
+IconAs[0].classList.remove("inactive");
+
+//Click on items
+IconAs.forEach((IconA,index) => {
+
+IconA.addEventListener("click",() => {
+
+document.querySelector(".icon.A.active").classList.add("inactive");
+document.querySelector(".icon.A.active").classList.remove("active");
+
+IconAs[index].classList.add("active");
+IconAs[index].classList.remove("inactive");
+
+});
+
+});
+
+
+//Click on Submenu Btn
+Button.querySelector("section").addEventListener("click",()=> {
+
+if(Nav.classList.contains("active")){
+    
+ Nav.classList.remove("active");
+
+}else{
+    
+ Nav.classList.add("active");
+
+}
+
+});
+
+function demo() {
+
+const icons = [IconAs[1], IconAs[2], IconAs[3], IconAs[0], Button.querySelector("section"), Button.querySelector("section")];
+
+icons.forEach((icon, i) => {
+  setTimeout(() => {icon.click();}, (i + 1) * 2000);
+});
+
+}
+
+demo();
+
+setInterval(() => {demo();},12000);
+
+</script>
+
+</body>
+
+</html>
