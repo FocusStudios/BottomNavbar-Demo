@@ -172,7 +172,44 @@ transform:translateX(-5px);
 
 </div>
 
-<script></script>
+<script>
+
+const Icons = document.querySelectorAll(".icon");
+const Indicator = document.querySelector(".indicator");
+
+let x = 1;
+
+Icons.forEach((Icon,index) => {
+
+Icon.addEventListener("click",() => {
+
+document.querySelector(".icon.active").classList.remove("active");
+Icon.classList.add("active");
+
+Indicator.style.animation = `Gentle${x}${index + 1} 1s forwards`;
+
+x = index + 1;
+
+});
+
+});
+
+function demo() {
+
+const icons = [1, 2, 3, 4, 0];
+
+icons.forEach((icon, i) => {
+
+setTimeout(() => {Icons[icon].click();}, (i + 1) * 1000);
+
+});
+
+}
+
+demo();
+setInterval(() => {demo();},5000);
+  
+</script>
 
 </body>
 
