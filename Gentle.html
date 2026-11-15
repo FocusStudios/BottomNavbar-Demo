@@ -575,9 +575,33 @@ fill:var(--secondary);}
 
 <script>
 
+const Wrapper = document.querySelector(".Wrapper");
+const Container = document.querySelector(".Container");
 const Nav = document.querySelector("nav");
 const IconAs = document.querySelectorAll(".icon.A");
 const Button = document.querySelector(".button");
+const curve = document.querySelector(".curve");
+
+function Resize() {
+
+curve.setAttribute("width", Nav.offsetWidth);
+curve.querySelector("rect").setAttribute("width", Nav.offsetWidth);
+curve.querySelector("rect").setAttribute("x", -(Nav.offsetWidth - 130)/2);
+
+if(window.innerHeight < Container.offsetHeight){
+
+Wrapper.style.height = "calc(200px + 600px*(100vw - 360px)/1200px)";
+
+}else{
+
+Wrapper.style.height = "100%";
+
+}
+
+}
+
+Resize();
+
 
 IconAs[0].classList.add("active");
 IconAs[0].classList.remove("inactive");
@@ -585,15 +609,15 @@ IconAs[0].classList.remove("inactive");
 //Click on items
 IconAs.forEach((IconA,index) => {
 
-IconA.addEventListener("click",() => {
+  IconA.addEventListener("click",() => {
 
-document.querySelector(".icon.A.active").classList.add("inactive");
-document.querySelector(".icon.A.active").classList.remove("active");
+    document.querySelector(".icon.A.active").classList.add("inactive");
+    document.querySelector(".icon.A.active").classList.remove("active");
 
-IconAs[index].classList.add("active");
-IconAs[index].classList.remove("inactive");
+    IconAs[index].classList.add("active");
+    IconAs[index].classList.remove("inactive");
 
-});
+  });
 
 });
 
